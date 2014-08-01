@@ -5,5 +5,5 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^$', 'maypi.views.home', name='home'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    url(r'^admin/docs/', include('django.contrib.admindocs.urls')),
 )
