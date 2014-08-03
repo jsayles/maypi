@@ -9,7 +9,7 @@ from os import system
 def home(request):
    if request.method == 'POST':
       action = request.POST.get("action")
-      if action == 'Ding':
+      if action == 'Alert':
          ding()
       if action == 'Unlock':
          unlock()
