@@ -26,3 +26,6 @@ The hardware used for this system includes:
 ## Installation
 Installing a django app is pretty straight forward.  I should probably add some better installation instructions though.
 
+## Icon
+Lock icon provided by Svangraph
+ - https://www.iconfinder.com/icons/61825/lock_icon#size=128
