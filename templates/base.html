@@ -6,7 +6,7 @@
 		<meta charset="utf-8">
 		<title>{% block pagetitle %}MayPi Doorman{% endblock %}</title>
 
-		<meta name="viewport" content="width=768, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0"> 
+		<meta name="viewport" initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0"> 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<link rel="apple-touch-icon" sizes="128x128" href="{% static 'lock_128.png' %}" \>
@@ -38,10 +38,11 @@
 			{% endblock %}
 		</div>
 		<div id="footer" data-role="footer" style="">
-			{% block footer %}
+			{% block footer %}<!--
 			<div style="float:right; margin-right: 1em;">MayPi Doorman</div>
 			<div style="float:left; margin-left: 1em;">&copy; 2014 Jacob Sayles</div>
-			{% endblock %}
+			-->{% endblock %}
+			<hr/>
 		</div>
 
 		{% block extrajs %}

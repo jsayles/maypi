@@ -3,6 +3,7 @@
 {% block content %}
 <form method="POST" action=".">
 	<input type="submit" name="action" value="Alert" data-theme="b" data-transition="fade"/>
+	<p style="margin:2em;"></p>
 	<input type="submit" name="action" value="Unlock" data-theme="b" data-transition="fade"/>
 	{% csrf_token %}
 </form>
