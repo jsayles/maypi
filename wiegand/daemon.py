@@ -2,6 +2,7 @@
 import time
 import pigpio
 import wiegand
+import sys
 
 DATA0_PIN = 14
 DATA1_PIN = 15
@@ -16,13 +17,31 @@ def log(msg):
 		f.write(time.ctime() + ": " + msg + "\n")
 
 class Controller:
+	index = 0
+	keys = []
+
 	def callback(self, bits, value):
 		if value == ESC:
-			log("<ESC>")
+			self.reset()
 		elif value == ENT:
-			log("<ENT>")
+			self.submit()
+			self.reset()
 		else:
-			log("key=%d" % value)
+			self.save_key(value)
+
+	def save_key(self, key):
+		self.keys.append(key)
+		self.index = self.index + 1
+
+	def reset(self):
+		self.index = 0
+		self.keys = []
+
+	def submit(self):
+		code = ""
+		for k in self.keys:
+			code = code + str(k)
+		log("code entered: %s" % code)
 
 	def start(self, d0pin, d1pin):
 		log("Starting wiegand daemon...")

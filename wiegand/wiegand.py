@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import time
+import pigpio
 
 DATA0_PIN = 14
 DATA1_PIN = 15
@@ -88,17 +89,4 @@ class decoder:
 
 		self.cb_0.cancel()
 		self.cb_1.cancel()
-
-if __name__ == "__main__":
-	def callback(bits, value):
-		print("bits={} value={}".format(bits, value))
-
-	pi = pigpio.pi()
-	w = wiegand.decoder(pi, 14, 15, callback)
-
-	while True:
-		time.sleep(5)
-
-	w.cancel()
-	pi.stop()
 
