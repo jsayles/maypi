@@ -1,10 +1,5 @@
-#!/usr/bin/env python
 import time
 import pigpio
-
-DATA0_PIN = 14
-DATA1_PIN = 15
-LOGFILE = "/tmp/wiegand.log"
 
 class decoder:
 	"""
@@ -21,7 +16,6 @@ class decoder:
 
 		The callback is passed the code length in bits and the value.
 		"""
-
 		self.pi = pi
 		self.gpio_0 = gpio_0
 		self.gpio_1 = gpio_1
@@ -45,9 +39,7 @@ class decoder:
 		"""
 		Accumulate bits until both gpios 0 and 1 timeout.
 		"""
-
 		if level < pigpio.TIMEOUT:
-
 			if self.in_code == False:
 				self.bits = 1
 				self.num = 0
@@ -65,11 +57,8 @@ class decoder:
 			else:
 				self.code_timeout = self.code_timeout & 1 # clear gpio 1 timeout
 				self.num = self.num | 1
-
 		else:
-
 			if self.in_code:
-
 				if gpio == self.gpio_0:
 					self.code_timeout = self.code_timeout | 1 # timeout gpio 0
 				else:
@@ -82,11 +71,9 @@ class decoder:
 					self.callback(self.bits, self.num)
 
 	def cancel(self):
-
 		"""
 		Cancel the Wiegand decoder.
 		"""
-
 		self.cb_0.cancel()
 		self.cb_1.cancel()
 
