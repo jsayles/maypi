@@ -1,12 +1,9 @@
 {% extends 'base.html' %}
 
-{% block body %}
-<h1>Welcome to MayPi</h1>
-
+{% block content %}
 <form method="POST" action=".">
-	<input name="action" type="submit" value="Alert"/>
-	<input name="action" type="submit" value="Unlock"/>
+	<input type="submit" name="action" value="Alert" data-theme="b" data-transition="fade"/>
+	<input type="submit" name="action" value="Unlock" data-theme="b" data-transition="fade"/>
 	{% csrf_token %}
 </form>
-
 {% endblock %}
