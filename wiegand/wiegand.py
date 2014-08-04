@@ -9,13 +9,13 @@ class decoder:
 	"""
 	A class to read Wiegand codes of an arbitrary length.
 
-  	The code length and value are returned.
-  	"""
+	The code length and value are returned.
+	"""
 
-  	def __init__(self, pi, gpio_0, gpio_1, callback, bit_timeout=5):
+	def __init__(self, pi, gpio_0, gpio_1, callback, bit_timeout=5):
 		"""
 		Instantiate with the pi, gpio for 0 (green wire), the gpio for 1
-  		(white wire), the callback function, and the bit timeout in
+		(white wire), the callback function, and the bit timeout in
 		milliseconds which indicates the end of a code.
 
 		The callback is passed the code length in bits and the value.
@@ -47,58 +47,58 @@ class decoder:
 
 		if level < pigpio.TIMEOUT:
 
-         if self.in_code == False:
-            self.bits = 1
-            self.num = 0
+			if self.in_code == False:
+				self.bits = 1
+				self.num = 0
 
-            self.in_code = True
-            self.code_timeout = 0
-            self.pi.set_watchdog(self.gpio_0, self.bit_timeout)
-            self.pi.set_watchdog(self.gpio_1, self.bit_timeout)
-         else:
-            self.bits += 1
-            self.num = self.num << 1
+				self.in_code = True
+				self.code_timeout = 0
+				self.pi.set_watchdog(self.gpio_0, self.bit_timeout)
+				self.pi.set_watchdog(self.gpio_1, self.bit_timeout)
+			else:
+				self.bits += 1
+				self.num = self.num << 1
 
-         if gpio == self.gpio_0:
-            self.code_timeout = self.code_timeout & 2 # clear gpio 0 timeout
-         else:
-            self.code_timeout = self.code_timeout & 1 # clear gpio 1 timeout
-            self.num = self.num | 1
+			if gpio == self.gpio_0:
+				self.code_timeout = self.code_timeout & 2 # clear gpio 0 timeout
+			else:
+				self.code_timeout = self.code_timeout & 1 # clear gpio 1 timeout
+				self.num = self.num | 1
 
-      else:
+		else:
 
-         if self.in_code:
+			if self.in_code:
 
-            if gpio == self.gpio_0:
-               self.code_timeout = self.code_timeout | 1 # timeout gpio 0
-            else:
-               self.code_timeout = self.code_timeout | 2 # timeout gpio 1
+				if gpio == self.gpio_0:
+					self.code_timeout = self.code_timeout | 1 # timeout gpio 0
+				else:
+					self.code_timeout = self.code_timeout | 2 # timeout gpio 1
 
-            if self.code_timeout == 3: # both gpios timed out
-               self.pi.set_watchdog(self.gpio_0, 0)
-               self.pi.set_watchdog(self.gpio_1, 0)
-               self.in_code = False
-               self.callback(self.bits, self.num)
+				if self.code_timeout == 3: # both gpios timed out
+					self.pi.set_watchdog(self.gpio_0, 0)
+					self.pi.set_watchdog(self.gpio_1, 0)
+					self.in_code = False
+					self.callback(self.bits, self.num)
 
-   def cancel(self):
+	def cancel(self):
 
-      """
-      Cancel the Wiegand decoder.
-      """
+		"""
+		Cancel the Wiegand decoder.
+		"""
 
-      self.cb_0.cancel()
-      self.cb_1.cancel()
+		self.cb_0.cancel()
+		self.cb_1.cancel()
 
 if __name__ == "__main__":
-   def callback(bits, value):
-      print("bits={} value={}".format(bits, value))
+	def callback(bits, value):
+		print("bits={} value={}".format(bits, value))
 
-   pi = pigpio.pi()
-   w = wiegand.decoder(pi, 14, 15, callback)
+	pi = pigpio.pi()
+	w = wiegand.decoder(pi, 14, 15, callback)
 
 	while True:
-   	time.sleep(5)
+		time.sleep(5)
 
-   w.cancel()
-   pi.stop()
+	w.cancel()
+	pi.stop()
 
