@@ -6,15 +6,9 @@ import sys
 
 DATA0_PIN = 14
 DATA1_PIN = 15
-LOGFILE = "/tmp/wiegand.log"
 
 ESC=10
 ENT=11
-
-def log(msg):
-	print(msg)
-	with open(LOGFILE, "a") as f:
-		f.write(time.ctime() + ": " + msg + "\n")
 
 class Controller:
 	index = 0
@@ -41,15 +35,15 @@ class Controller:
 		code = ""
 		for k in self.keys:
 			code = code + str(k)
-		log("code entered: %s" % code)
+		print("code entered: %s" % code)
 
 	def start(self, d0pin, d1pin):
-		log("Starting wiegand daemon...")
+		print("Starting wiegand daemon...")
 		self.pi = pigpio.pi()
 		self.w = wiegand.decoder(self.pi, d0pin, d1pin, self.callback)
 
 	def stop(self):
-		log("Stopping wiegand daemon...")
+		print("Stopping wiegand daemon...")
 		self.w.cancel()
 		self.pi.stop()
 

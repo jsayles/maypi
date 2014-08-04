@@ -1,0 +1,15 @@
+#!/bin/bash
+
+NAME="maypi"                                      # Name of the application
+DJANGODIR=/home/maypi/webapp/maypi                # Django project directory
+DJANGO_SETTINGS_MODULE=maypi.settings             # which settings file should Django use
+
+# Activate the virtual environment
+cd $DJANGODIR
+source $DJANGODIR/../bin/activate
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+
+# Start your daemon
+wiegand/daemon.py
+
