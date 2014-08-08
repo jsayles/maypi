@@ -35,17 +35,19 @@ class Controller:
 		code = ""
 		for k in self.keys:
 			code = code + str(k)
-		print("code entered: %s" % code)
+		sys.stdout.write("code entered: %s\n" % code)
 
 	def start(self, d0pin, d1pin):
-		print("Starting wiegand daemon...")
+		sys.stdout.write("Starting wiegand daemon...")
 		self.pi = pigpio.pi()
 		self.w = wiegand.decoder(self.pi, d0pin, d1pin, self.callback)
+		sys.stdout.write("done!\n")
 
 	def stop(self):
-		print("Stopping wiegand daemon...")
+		sys.stdout.write("Stopping wiegand daemon...")
 		self.w.cancel()
 		self.pi.stop()
+		sys.stdout.write("done!\n")
 
 if __name__ == "__main__":
 	# Start our controller
@@ -55,6 +57,7 @@ if __name__ == "__main__":
 	try:
 		while True:
 			time.sleep(1)
+			sys.stdout.flush()
 	except (KeyboardInterrupt, SystemExit):
 		controller.stop()
 		sys.exit(0)
