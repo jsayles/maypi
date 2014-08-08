@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from time import sleep
 from os import system
+import json
 
 def home(request):
    if request.method == 'POST':
@@ -16,6 +17,12 @@ def home(request):
 
    return render(request, "home.html", {})
 
+def pincode(request):
+    if request.method == 'POST':
+        pin = json.loads(request.body)["pin"]
+        if pin == "1234":
+            unlock()
+
 def ding() :
    system("/usr/local/bin/gpio -p write 201 1")
    sleep(0.15)
@@ -25,4 +32,3 @@ def unlock():
    system("/usr/local/bin/gpio -p write 200 1")
    sleep(5)
    system("/usr/local/bin/gpio -p write 200 0")
-

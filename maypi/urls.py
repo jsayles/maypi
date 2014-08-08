@@ -9,8 +9,8 @@ urlpatterns = patterns('',
 
 	url(r'^$', 'maypi.views.home', name='home'),
 	url(r'^admin/', include(admin.site.urls)),
+	url(r'^pincode/', 'maypi.views.pincode')
 )
 
 def get_manifest():
 	return "CACHE MANIFEST\n#Time: %s\nCACHE:\nFALLBACK:\nNETWORK:\n*" % time.time()
-
