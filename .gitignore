@@ -4,3 +4,4 @@ maypi/local_settings.py
 backups
 media
 .DS_Store
+build
