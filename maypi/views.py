@@ -21,7 +21,6 @@ def home(request):
 
    return render(request, "home.html", {})
 
-
 @csrf_exempt
 def pincode(request):
     if request.method == 'POST':

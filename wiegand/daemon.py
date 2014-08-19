@@ -42,7 +42,7 @@ class Controller:
 		sys.stdout.write("code entered: %s\n" % code)
 		payload = {"pin" : code}
 		r = requests.post(TARGET, data=payload)
-		sys.stdout.write("Posting pin returned: %s" % r.text)
+		#sys.stdout.write("Posting pin returned: %s" % r.text)
 
 	def start(self, d0pin, d1pin):
 		sys.stdout.write("Starting wiegand daemon...")
