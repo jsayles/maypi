@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Log in to your account</h2>
+<form action="/login/" enctype="multipart/form-data" method="POST">{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Login" />
+</form>
+{% endblock %}

@@ -12,11 +12,11 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-SECRET_KEY = 'secretkeyissecret'
+LOGIN_URL='/login/'
+LOGIN_REDIRECT_URL='/'
 
 DEBUG = False
-
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 TEMPLATE_DIRS = ( BASE_DIR + '/templates/', )
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -47,6 +47,16 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+	"django.contrib.auth.context_processors.auth",
+	"django.core.context_processors.debug",
+	"django.core.context_processors.i18n",
+	"django.core.context_processors.media",
+	"django.core.context_processors.static",
+	"django.core.context_processors.tz",
+	"django.core.context_processors.request",	
 )
 
 ROOT_URLCONF = 'maypi.urls'

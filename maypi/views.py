@@ -9,6 +9,7 @@ from time import sleep
 from os import system
 import json
 
+@login_required
 def home(request):
    if request.method == 'POST':
       action = request.POST.get("action")
