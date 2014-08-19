@@ -18,7 +18,7 @@ class Controller:
 	keys = []
 
 	def callback(self, bits, value):
-		sys.stdout.write("key pressed: %s\n" % value)
+		#sys.stdout.write("key pressed: %s\n" % value)
 		if value == ESC:
 			self.reset()
 		elif value == ENT:

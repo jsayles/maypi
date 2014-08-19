@@ -2,9 +2,10 @@ from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 from time import sleep
 from os import system
 import json
@@ -26,7 +27,7 @@ def pincode(request):
     if request.method == 'POST':
         # pin = json.loads(request.body)["pin"]
         pin = request.POST.get("pin")
-        if pin == "1234":
+        if pin == settings.DOORCODE:
             unlock()
     return HttpResponse()
 
