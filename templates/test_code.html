@@ -1,0 +1,9 @@
+
+
+{% block content %}
+<h2>Test a Code</h2>
+<form action="{% url 'pincode' %}" enctype="multipart/form-data" method="POST">{% csrf_token %}
+	<input name="pin" />
+	<input type="submit" value="Test" />
+</form>
+{% endblock %}

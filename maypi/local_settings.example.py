@@ -1,4 +1,55 @@
+ADMINS = (
+    ('SYSTEMS PERSON', 'systems@yourdomain.com'),
+)
 DEBUG = True
 TEMPLATE_DEBUG = True
-SECRET_KEY = 'secretkeyissecret'
-DOORCODE=1234
+SECRET_KEY = 'yoursecretkeyissecret'
+
+LOGGING = {
+		'version': 1,
+		'disable_existing_loggers': False,
+		'formatters': {
+				'verbose': {
+						'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+						'datefmt' : "%d/%b/%Y %H:%M:%S"
+				  },
+				  'simple': {
+								'format': '%(levelname)s %(message)s'
+				  },
+		 },
+		'handlers': {
+				'file': {
+						'level': 'DEBUG',
+						'class': 'logging.FileHandler',
+						'filename': 'django.log',
+						'formatter': 'verbose',
+				},
+				'mail_admins': {
+						'level': 'ERROR',
+						'class': 'django.utils.log.AdminEmailHandler',
+						'include_html': True,
+						'formatter': 'verbose',
+				},
+				'console':{
+					'level': 'DEBUG',
+					'class': 'logging.StreamHandler',
+					'formatter': 'simple'
+				},
+		},
+		'loggers': {
+				'django': {
+						'handlers': ['file', 'console'],
+						'level': 'INFO',
+						'propagate': True,
+				},
+				'django.request': {
+						'handlers': ['file', 'mail_admins'],
+						'level': 'INFO',
+						'propagate': True,
+				},
+				'maypi': {
+						'handlers': ['file', 'console'],
+						'level': 'DEBUG',
+				},
+		},
+}

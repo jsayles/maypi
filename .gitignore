@@ -5,3 +5,4 @@ backups
 media
 .DS_Store
 build
+django.log
