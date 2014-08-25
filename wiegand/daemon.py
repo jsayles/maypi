@@ -15,8 +15,9 @@ ENT=11
 TARGET="http://localhost/pincode/"
 
 def log(message, timestamp=True, newline=True):
-	timestamp = str(datetime.now())[:19]
-	sys.stdout.write("%s: %s" % (timestamp, message))
+	if timestamp:
+		sys.stdout.write("%s: " % str(datetime.now())[:19])
+	sys.stdout.write(message)
 	if newline:
 		sys.stdout.write("\n")
 
