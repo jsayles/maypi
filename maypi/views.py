@@ -10,8 +10,8 @@ from django.conf import settings
 from maypi.models import *
 from time import sleep
 from os import system
-import json
 import logging
+import door
 
 logger = logging.getLogger(__name__)
 
@@ -19,10 +19,10 @@ logger = logging.getLogger(__name__)
 def home(request):
 	if request.method == 'POST':
 		action = request.POST.get("action")
-		if action == 'Alert':
-			ding()
+		if action == 'Bell':
+			door.bell()
 		if action == 'Unlock':
-			unlock()
+			door.unlock()
 
 	return render(request, "home.html", {})
 
@@ -38,6 +38,7 @@ def pincode(request):
 		logger.debug("code_entered: %s" % code_entered)
 		log = CodeLog(code_entered=code_entered, success=False)
 		now = timezone.localtime(timezone.now())
+		message = "FAIL"
 		try:
 			door_code = DoorCode.objects.get(code=code_entered)
 			if door_code:
@@ -46,21 +47,14 @@ def pincode(request):
 				if door_code.start < now:
 					if not door_code.end or dore_code.end > now:
 						delay_sec = int(settings.UNLOCK_DELAY)
-						unlock(delay_sec)
+						door.unlock(delay_sec)
+						message = "UNLOCKED"
 						log.success = True
+			else:
+				door.alarm(delay_sec=1)
+				message = "ALARM"
 		except:
 			pass
 		log.save()
-	return HttpResponse()
+	return HttpResponse("Unlocked", content_type="text/plain", status=200)
 
-def ding() :
-	system("/usr/local/bin/gpio -p write 201 1")
-	sleep(0.15)
-	system("/usr/local/bin/gpio -p write 201 0")
-
-def unlock(delay_sec):
-	system("/usr/local/bin/gpio -p write 202 1")
-	system("/usr/local/bin/gpio -p write 200 1")
-	sleep(delay_sec)
-	system("/usr/local/bin/gpio -p write 202 0")
-	system("/usr/local/bin/gpio -p write 200 0")
