@@ -43,8 +43,12 @@ def pincode(request):
 			if door_code:
 				log.code = door_code
 				log.user = door_code.user
-				if door_code.start < now:
-					if not door_code.end or dore_code.end > now:
+				if door_code.start > now:
+					message = "INVALID"
+				else:
+					if door_code.end and door_code.end < now:
+						message = "EXPIRED"
+					else:
 						delay_sec = int(settings.UNLOCK_DELAY)
 						door.unlock(delay_sec)
 						message = "UNLOCKED"
