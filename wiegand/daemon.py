@@ -14,7 +14,7 @@ ENT=11
 
 TARGET="http://localhost/pincode/"
 
-def log(message, newline=True):
+def log(message, timestamp=True, newline=True):
 	timestamp = str(datetime.now())[:19]
 	sys.stdout.write("%s: %s" % (timestamp, message))
 	if newline:
@@ -55,13 +55,13 @@ class Controller:
 		log("Starting wiegand daemon...", newline=False)
 		self.pi = pigpio.pi()
 		self.w = wiegand.decoder(self.pi, d0pin, d1pin, self.callback)
-		log("done!")
+		log("done!", timestamp=False)
 
 	def stop(self):
 		log("Stopping wiegand daemon...", newline=False)
 		self.w.cancel()
 		self.pi.stop()
-		log("done!")
+		log("done!", timestamp=False)
 
 if __name__ == "__main__":
 	# Start our controller
