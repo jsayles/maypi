@@ -47,7 +47,7 @@ class Controller:
 		code = ""
 		for k in self.keys:
 			code = code + str(k)
-		log("code entered: %s" % code)
+		log("Code entered: %s" % code)
 		payload = {"pin" : code}
 		r = requests.post(TARGET, data=payload)
 		log("Posting pin returned: %s" % r.text)
