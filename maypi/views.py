@@ -21,7 +21,7 @@ def home(request):
 
 @login_required
 def add_user(request):
-	return render(request, "home.html", {})
+	return render(request, "add_user.html", {})
 
 @login_required
 def test_code(request):

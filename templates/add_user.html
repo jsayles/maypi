@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Add a User</h2>
+<div>
+	<form method="POST">{% csrf_token %}
+	<table>
+		<tr><th>Email:</th><td><input name="email" /></td></tr>
+		<tr><th>First Name:</th><td><input name="first_name" /></td></tr>
+		<tr><th>Last Name:</th><td><input name="last_name" /></td></tr>
+		<tr><th>Code:</th><td><input name="code" /></td></tr>
+		<tr><th></th><td><input type="submit" value="Add" /></td></tr>
+	</table>
+	</form>
+</div>
+
+{% endblock %}

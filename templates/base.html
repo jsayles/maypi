@@ -27,9 +27,9 @@
 						{% if user.is_authenticated %}
 							<li><a href="{% url 'mobile' %}">Mobile Site</a></li>
 							{% if user.is_superuser %}
-							<li><a tabindex="-1" href="{% url 'admin:index' %}">Django Admin</a></li>
-							<li><a href="{% url 'test_code' %}">Test Code</a></li>
 							<li><a href="{% url 'add_user' %}">Add User</a></li>
+							<li><a href="{% url 'test_code' %}">Test Code</a></li>
+							<li><a tabindex="-1" href="{% url 'admin:index' %}">Admin</a></li>
 							{% endif %}
 							<li><a tabindex="-1" href="/logout/">Logout</a></li>
 						{% else %}
