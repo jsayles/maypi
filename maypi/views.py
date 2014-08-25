@@ -16,18 +16,30 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def home(request):
-	if request.method == 'POST':
-		action = request.POST.get("action")
-		if action == 'Bell':
-			door.bell()
-		if action == 'Unlock':
-			door.unlock()
+	logs = CodeLog.objects.all().order_by('-created')[:25]
+	return render(request, "home.html", {'logs':logs})
 
+@login_required
+def add_user(request):
 	return render(request, "home.html", {})
 
 @login_required
 def test_code(request):
 	return render(request, "test_code.html", {})
+
+@login_required
+def mobile(request):
+	if request.method == 'POST':
+		action = request.POST.get("action")
+		action = action.lower()
+		logger.debug("Action=%s" % action)
+		if action == 'bell':
+			door.bell()
+		elif action == 'alarm':
+			door.alarm()
+		elif action == 'unlock':
+			door.unlock()
+	return render(request, "mobile.html", {})
 
 @csrf_exempt
 def pincode(request):

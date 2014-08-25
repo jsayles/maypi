@@ -8,6 +8,8 @@ urlpatterns = patterns('',
 	url(r'^cache\.manifest$', lambda r: HttpResponse(get_manifest(), mimetype="text/plain")),
 
 	url(r'^$', 'maypi.views.home', name='home'),
+	url(r'^mobile/', 'maypi.views.mobile', name='mobile'),
+	url(r'^add/', 'maypi.views.add_user', name='add_user'),
 	url(r'^test_code/', 'maypi.views.test_code', name='test_code'),
 	url(r'^pincode/', 'maypi.views.pincode', name='pincode'),
 	url(r'^admin/', include(admin.site.urls)),

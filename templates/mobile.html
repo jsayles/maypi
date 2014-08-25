@@ -1,0 +1,47 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>MayPi Doorman</title>
+
+		<meta name="viewport" content="width=128, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0"> 
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<link rel="apple-touch-icon" sizes="128x128" href="{% static 'images/lock_128.png' %}" \>
+
+		<link rel="stylesheet" href="{% static 'maypi.css' %}">
+		<link rel="stylesheet" href="{% static 'jquery.mobile-1.4.1.min.css' %}">
+
+		<!--[if IE]>
+			<script src="{% static 'html5.js' %}"></script>
+		<![endif]-->
+
+		<script src="{% static 'jquery-1.10.2.min.js' %}"></script>
+		<script src="{% static 'jquery.mobile-1.4.1.min.js' %}"></script>
+	</head>
+
+	<body>
+	<div data-role="page">
+		<div id="header" data-role="header" data-position="inline">
+				<h1>MayPi Doorman</h1>
+		</div>
+		<div data-role="content">
+			<form method="POST">
+				<input type="submit" name="action" value="Bell" data-theme="b" data-transition="fade"/>
+				<p style="margin:2em;"></p>
+				<input type="submit" name="action" value="Alarm" data-theme="b" data-transition="fade"/>
+				<p style="margin:2em;"></p>
+				<input type="submit" name="action" value="Unlock" data-theme="b" data-transition="fade"/>
+				{% csrf_token %}
+			</form>
+		</div>
+		<div id="footer" data-role="footer">
+			<hr>
+			<div style="float:right; margin-right: 1em;"><a href="https://github.com/jsayles/maypi">MayPi Doorman</a></div>
+			<div style="float:left; margin-left: 1em;">&copy; 2014 Jacob Sayles</div>
+		</div>
+	</body>
+</html>
+

@@ -1,10 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="POST" action=".">
-	<input type="submit" name="action" value="Alert" data-theme="b" data-transition="fade"/>
-	<p style="margin:2em;"></p>
-	<input type="submit" name="action" value="Unlock" data-theme="b" data-transition="fade"/>
-	{% csrf_token %}
-</form>
+
+<h2>Last 25 Logs</h2>
+<table class="dataTable">
+	<thead>
+		<tr>
+			<th>Timestamp</th>
+			<th>Code</th>
+			<th>User</th>
+			<th>Status</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for log in logs %}
+		<tr>
+			<td>{{ log.created }}</td>
+			<td>{{ log.code_entered }}</td>
+			<td>{{ log.user }}</td>
+			<td>{{ log.status }}</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+
 {% endblock %}

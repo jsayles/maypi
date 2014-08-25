@@ -5,22 +5,10 @@
 	<head>
 		<meta charset="utf-8">
 		<title>{% block pagetitle %}MayPi Doorman{% endblock %}</title>
-
-		<meta name="viewport" content="width=128, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0"> 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-		<link rel="apple-touch-icon" sizes="128x128" href="{% static 'images/lock_128.png' %}" \>
-
-		<link rel="stylesheet" href="{% static 'maypi.css' %}">
-		<link rel="stylesheet" href="{% static 'jquery.mobile-1.4.1.min.css' %}">
-
-		<!--[if IE]>
-			<script src="{% static 'html5.js' %}"></script>
-		<![endif]-->
-
-		<script src="{% static 'jquery-1.10.2.min.js' %}"></script>
-		<script src="{% static 'jquery.mobile-1.4.1.min.js' %}"></script>
 		
+		<link rel="stylesheet" href="{% static 'maypi.css' %}">
+		<link href="{% static 'bootstrap.css' %}" rel="stylesheet">
+
 		{%block sub-head %}{% endblock %}
 		
 		<style>
@@ -29,24 +17,50 @@
 	</head>
 
 	<body>
-	<div data-role="page">
-		<div id="header" data-role="header" data-position="inline">
-				<h1>MayPi Doorman</h1>
-		</div>
-		<div data-role="content">
+		<div id="full-page-wrapper">
+		<div class="container-fluid" data-role="content">
+			<div class="row">
+				<nav class="navbar navbar-default" id="main-navigation" role="navigation">
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-left">
+						<li><a class="navbar-brand" href="/">Maypi Doorman System:</a></li>
+						{% if user.is_authenticated %}
+							<li><a href="{% url 'mobile' %}">Mobile Site</a></li>
+							{% if user.is_superuser %}
+							<li><a tabindex="-1" href="{% url 'admin:index' %}">Django Admin</a></li>
+							<li><a href="{% url 'test_code' %}">Test Code</a></li>
+							<li><a href="{% url 'add_user' %}">Add User</a></li>
+							{% endif %}
+							<li><a tabindex="-1" href="/logout/">Logout</a></li>
+						{% else %}
+							<li><a href="/login/">Login</a></li>
+						{% endif %}
+					</ul>
+				</div>
+				</nav>
+			</div>
+
 			{% block content %}
 			{% endblock %}
 		</div>
-		<div id="footer" data-role="footer" style="">
-			{% block footer %}<!--
-			<div style="float:right; margin-right: 1em;">MayPi Doorman</div>
+		<div id="footer" data-role="footer">
+			<hr>
+			{% block footer %}
+			<div style="float:right; margin-right: 1em;"><a href="https://github.com/jsayles/maypi">MayPi Doorman</a></div>
 			<div style="float:left; margin-left: 1em;">&copy; 2014 Jacob Sayles</div>
-			-->{% endblock %}
-			<hr/>
+			{% endblock %}
+		</div>
 		</div>
 
 		{% block extrajs %}
 		{% endblock %}
+
+		<!-- Le javascript -->
+		<link rel="stylesheet" href="{% static 'jquery-ui-1.9.1.custom.css' %}" />    
+		<script src="{% static 'jquery-1.8.2.js' %}"></script>
+		<script src="{% static 'jquery-ui-1.9.1.custom.js' %}"></script>	
+		<script src="{% static 'bootstrap.js' %}"></script>
+		</div>
 	</body>
 </html>
 
