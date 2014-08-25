@@ -7,11 +7,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.conf import settings
-from maypi.models import *
+from maypi.models import DoorCode, CodeLog
+from maypi import door
 from time import sleep
 from os import system
 import logging
-import door
 
 logger = logging.getLogger(__name__)
 

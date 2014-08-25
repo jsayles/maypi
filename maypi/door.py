@@ -1,3 +1,6 @@
+from time import sleep
+from os import system
+
 def bell() :
 	system("/usr/local/bin/gpio -p write 201 1")
 	sleep(0.15)
