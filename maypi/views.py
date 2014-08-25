@@ -37,27 +37,28 @@ def pincode(request):
 		logger.debug("code_entered: %s" % code_entered)
 		log = CodeLog(code_entered=code_entered, success=False)
 		now = timezone.localtime(timezone.now())
-		message = "FAIL"
+		status = "FAIL"
 		try:
 			door_code = DoorCode.objects.filter(code=code_entered).first()
 			if door_code:
 				log.code = door_code
 				log.user = door_code.user
 				if door_code.start > now:
-					message = "INVALID"
+					status = "TOOEARLY"
 				else:
 					if door_code.end and door_code.end < now:
-						message = "EXPIRED"
+						status = "EXPIRED"
 					else:
 						delay_sec = int(settings.UNLOCK_DELAY)
 						door.unlock(delay_sec)
-						message = "UNLOCKED"
+						status = "UNLOCKED"
 						log.success = True
 			else:
 				door.alarm(delay_sec=1)
-				message = "ALARM"
+				status = "ALARM"
 		except:
 			pass
+		log.status = status
 		log.save()
-	return HttpResponse(message, content_type="text/plain", status=200)
+	return HttpResponse(status, content_type="text/plain")
 

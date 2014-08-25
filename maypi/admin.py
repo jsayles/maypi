@@ -10,7 +10,8 @@ admin.site.register(DoorCode, DoorCodeAdmin)
 
 class CodeLogAdmin(admin.ModelAdmin):
 	model = CodeLog
-	list_display=('created', 'code_entered', 'user', 'code', 'success')
+	list_display=('created', 'code_entered', 'user', 'status')
+	list_filter = ('status', )
 admin.site.register(CodeLog, CodeLogAdmin)
 
 admin.site.unregister(User)

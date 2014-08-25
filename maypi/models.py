@@ -18,3 +18,4 @@ class CodeLog(models.Model):
 	code = models.ForeignKey(DoorCode, null=True, blank=True)
 	user = models.ForeignKey(User, null=True, blank=True)
 	success = models.BooleanField(default=False)
+	status = models.CharField(max_length=16, default="NONE")
