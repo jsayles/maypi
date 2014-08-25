@@ -10,7 +10,6 @@ from django.conf import settings
 from maypi.models import DoorCode, CodeLog
 from maypi import door
 from time import sleep
-from os import system
 import logging
 
 logger = logging.getLogger(__name__)
@@ -56,5 +55,5 @@ def pincode(request):
 		except:
 			pass
 		log.save()
-	return HttpResponse("Unlocked", content_type="text/plain", status=200)
+	return HttpResponse(message, content_type="text/plain", status=200)
 
