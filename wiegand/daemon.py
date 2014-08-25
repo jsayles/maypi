@@ -1,9 +1,10 @@
 #!/usr/bin/env python
+import sys
 import time
 import pigpio
 import wiegand
-import sys
 import requests
+from datetime import datetime
 
 DATA0_PIN = 14
 DATA1_PIN = 15
@@ -12,6 +13,12 @@ ESC=10
 ENT=11
 
 TARGET="http://localhost/pincode/"
+
+log(message, newline=True):
+	timestamp = datetime.now()
+	sys.stdout.write("%s: %s" % (timestamp, message))
+	if newline:
+		sys.stdout.write("\n")
 
 class Controller:
 	index = 0
@@ -39,22 +46,22 @@ class Controller:
 		code = ""
 		for k in self.keys:
 			code = code + str(k)
-		sys.stdout.write("code entered: %s\n" % code)
+		log("code entered: %s" % code)
 		payload = {"pin" : code}
 		r = requests.post(TARGET, data=payload)
-		#sys.stdout.write("Posting pin returned: %s" % r.text)
+		log("Posting pin returned: %s" % r.text)
 
 	def start(self, d0pin, d1pin):
-		sys.stdout.write("Starting wiegand daemon...")
+		log("Starting wiegand daemon...", newline=False)
 		self.pi = pigpio.pi()
 		self.w = wiegand.decoder(self.pi, d0pin, d1pin, self.callback)
-		sys.stdout.write("done!\n")
+		log("done!")
 
 	def stop(self):
-		sys.stdout.write("Stopping wiegand daemon...")
+		log("Stopping wiegand daemon...", newline=False)
 		self.w.cancel()
 		self.pi.stop()
-		sys.stdout.write("done!\n")
+		log("done!")
 
 if __name__ == "__main__":
 	# Start our controller
