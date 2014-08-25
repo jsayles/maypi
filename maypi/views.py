@@ -39,7 +39,7 @@ def pincode(request):
 		now = timezone.localtime(timezone.now())
 		message = "FAIL"
 		try:
-			door_code = DoorCode.objects.get(code=code_entered)
+			door_code = DoorCode.objects.filter(code=code_entered).first()
 			if door_code:
 				log.code = door_code
 				log.user = door_code.user
