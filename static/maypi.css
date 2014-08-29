@@ -1,4 +1,4 @@
-#header { 
+#mobile-header { 
 	text-shadow: none;
 	background-color:#313131; 
 	font-size: 1.5em; 
@@ -6,8 +6,23 @@
 	padding-top:15px;
 }
 
+#mobile-footer { 
+	text-shadow: none;
+	background-color:#FFF; 
+}
+
+#header { 
+}
+
+#footer { 
+	text-shadow: none;
+	background-color:#black; 
+}
+
 body {
 	text-align:center;
+	float: none;
+	margin: 0 auto;
 }
 
 /* Override the JQuery Mobile stuff */
@@ -25,3 +40,14 @@ body {
 	width: 75%;
 	margin: 1em auto;
 }
+
+/* Class for centering columns. Add to column class eg. class='col-md-1 col-centered' */
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+td {
+	padding: 100px;
+}
+

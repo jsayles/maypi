@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db import models
 from datetime import datetime
@@ -11,6 +12,19 @@ class DoorCode(models.Model):
 	user = models.ForeignKey(User, null=True, blank=True)
 	start = models.DateTimeField(null=False, default=datetime.now)
 	end = models.DateTimeField(null=True, blank=True)
+	
+	def is_valid(self):
+		now = timezone.localtime(timezone.now())
+		if self.start < now:
+			if not self.is_expired():
+				return True
+		return False
+	
+	def is_expired(self):
+		now = timezone.localtime(timezone.now())
+		if self.end and self.end < now:
+			return True
+		return False
 
 class CodeLog(models.Model):
 	created = models.DateTimeField(auto_now_add=True)

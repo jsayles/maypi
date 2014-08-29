@@ -9,7 +9,7 @@ urlpatterns = patterns('',
 
 	url(r'^$', 'maypi.views.home', name='home'),
 	url(r'^mobile/', 'maypi.views.mobile', name='mobile'),
-	url(r'^add/', 'maypi.views.add_user', name='add_user'),
+	url(r'^users/', 'maypi.views.users', name='users'),
 	url(r'^test_code/', 'maypi.views.test_code', name='test_code'),
 	url(r'^pincode/', 'maypi.views.pincode', name='pincode'),
 	url(r'^admin/', include(admin.site.urls)),
