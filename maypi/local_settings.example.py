@@ -22,6 +22,7 @@ LOGGING = {
 						'level': 'DEBUG',
 						'class': 'logging.FileHandler',
 						'filename': 'django.log',
+						#'filename': '/home/maypi/logs/django.log'
 						'formatter': 'verbose',
 				},
 				'mail_admins': {

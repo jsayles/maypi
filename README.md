@@ -35,7 +35,7 @@ https://www.raspberrypi.org/downloads/
 ### Install a few essentials and set up the pi
 ```
 sudo apt-get install git tmux python-pip python-dev virtualenvwrapper
-sudo apt-get install nginx gunicorn
+sudo apt-get install nginx gunicorn supervisor
 ```
 ### Disable Swap
 ```
@@ -78,7 +78,10 @@ cd webapp
 source bin/activate
 git clone https://github.com/jsayles/maypi.git
 cd maypi
-cp bin/* ../bin
+cp config/gunicorn_start /home/maypi/webapp/bin/
+cp config/wiegand_start /home/maypi/webapp/bin/
+sudo cp config/gunicorn.conf /etc/supervisor/conf.d/
+sudo cp config/wiegand.conf /etc/supervisor/conf.d/
 cp maypi/local_settings.example.py maypi/local_settings.py
 vi maypi/local_settings.py
 pip install -r requirements.txt
