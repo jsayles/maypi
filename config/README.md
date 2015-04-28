@@ -5,5 +5,9 @@ cp gunicorn_start /home/maypi/webapp/bin/
 cp wiegand_start /home/maypi/webapp/bin/
 
 ## Supervisor Config files
-cp gunicorn.conf /etc/supervisor/conf.d/
-cp wiegand.conf /etc/supervisor/conf.d/
+cp supervisor/gunicorn.conf /etc/supervisor/conf.d/
+cp supervisor/wiegand.conf /etc/supervisor/conf.d/
+
+## NGINX
+cp nginx/maypi.conf /etc/nginx/sites-available
+ln -s /etc/nginx/sites-available/maypi.conf /etc/nginx/sites-enabled

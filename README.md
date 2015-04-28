@@ -61,12 +61,21 @@ https://github.com/adafruit/Adafruit-Pi-Finder#adafruit-raspberry-pi-finder
 curl -SLs https://apt.adafruit.com/bootstrap | bash
 ```
 
-### Install Wiring Pi ###
+### Install Wiring Pi
 https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/
 ```
 git clone git://git.drogon.net/wiringPi
 cd wiringPi
 ./build
+```
+
+### Install PiGPIO
+http://abyz.co.uk/rpi/pigpio/download.html
+```
+git clone https://github.com/joan2937/pigpio
+cd PIGPIO
+make
+make install
 ```
 
 ## Setup Maypi Application
@@ -78,12 +87,11 @@ cd webapp
 source bin/activate
 git clone https://github.com/jsayles/maypi.git
 cd maypi
-cp config/gunicorn_start /home/maypi/webapp/bin/
-cp config/wiegand_start /home/maypi/webapp/bin/
-sudo cp config/gunicorn.conf /etc/supervisor/conf.d/
-sudo cp config/wiegand.conf /etc/supervisor/conf.d/
 cp maypi/local_settings.example.py maypi/local_settings.py
 vi maypi/local_settings.py
 pip install -r requirements.txt
 ./manage.py migrate
 ```
+
+## Setup Nginx/Supervisor/Gunicorn
+Follow the instructions in config/README.md
