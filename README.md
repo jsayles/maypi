@@ -84,6 +84,8 @@ sudo adduser maypi
 sudo su - maypi
 virtualenv webapp
 cd webapp
+mkdir static
+mkdir media
 source bin/activate
 git clone https://github.com/jsayles/maypi.git
 cd maypi
@@ -91,6 +93,7 @@ cp maypi/local_settings.example.py maypi/local_settings.py
 vi maypi/local_settings.py
 pip install -r requirements.txt
 ./manage.py migrate
+./manage.py collectstatic
 ```
 
 ## Setup Nginx/Supervisor/Gunicorn

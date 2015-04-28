@@ -5,6 +5,9 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 SECRET_KEY = 'yoursecretkeyissecret'
 
+STATIC_ROOT = '/home/maypi/webapp/static/'
+MEDIA_ROOT = '/home/maypi/webapp/media/'
+
 LOGGING = {
 		'version': 1,
 		'disable_existing_loggers': False,
@@ -21,8 +24,8 @@ LOGGING = {
 				'file': {
 						'level': 'DEBUG',
 						'class': 'logging.FileHandler',
-						'filename': 'django.log',
-						#'filename': '/home/maypi/logs/django.log'
+						#'filename': 'django.log',
+						'filename': '/home/maypi/logs/django.log'
 						'formatter': 'verbose',
 				},
 				'mail_admins': {
