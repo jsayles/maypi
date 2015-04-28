@@ -7,6 +7,10 @@ MayPi is named after William May.  William May has been The Fairmont San Francis
 Learn more here: 
  - https://www.youtube.com/watch?v=c4ozJKBp0XI
 
+## Icon
+Lock icon provided by Svangraph
+ - https://www.iconfinder.com/icons/61825/lock_icon#size=128
+
 ## Hardware
 The hardware used for this system includes:
  - Raspberry Pi Model B
@@ -56,6 +60,23 @@ https://github.com/adafruit/Adafruit-Pi-Finder#adafruit-raspberry-pi-finder
 ```
 curl -SLs https://apt.adafruit.com/bootstrap | bash
 ```
-## Icon
-Lock icon provided by Svangraph
- - https://www.iconfinder.com/icons/61825/lock_icon#size=128
+
+### Install Wiring Pi ###
+https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/
+```
+git clone git://git.drogon.net/wiringPi
+cd wiringPi
+./build
+```
+
+## Setup Maypi Application
+```
+sudo adduser maypi
+sudo su - maypi
+virtualenv maypi
+cd maypi
+git clone https://github.com/jsayles/maypi.git
+cd maypi/local_settings.example.py maypi/local_settings.py
+pip install -r requirements.txt
+./manage.py migrate
+```
