@@ -73,11 +73,12 @@ cd wiringPi
 ```
 sudo adduser maypi
 sudo su - maypi
-virtualenv maypisour
-cd maypi
+virtualenv webapp
+cd webapp
 source bin/activate
 git clone https://github.com/jsayles/maypi.git
 cd maypi
+cp bin/* ../bin
 cp maypi/local_settings.example.py maypi/local_settings.py
 vi maypi/local_settings.py
 pip install -r requirements.txt
