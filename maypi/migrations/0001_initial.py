@@ -1,99 +1,47 @@
 # -*- coding: utf-8 -*-
-from south.utils import datetime_utils as datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+import datetime
+from django.conf import settings
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'DoorCode'
-        db.create_table(u'maypi_doorcode', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('code', self.gf('django.db.models.fields.CharField')(unique=True, max_length=16, db_index=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True)),
-            ('start', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('end', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-        ))
-        db.send_create_signal(u'maypi', ['DoorCode'])
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
 
-        # Adding model 'CodeLog'
-        db.create_table(u'maypi_codelog', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('code_entered', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('code', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['maypi.DoorCode'], null=True, blank=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True)),
-            ('success', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal(u'maypi', ['CodeLog'])
-
-
-    def backwards(self, orm):
-        # Deleting model 'DoorCode'
-        db.delete_table(u'maypi_doorcode')
-
-        # Deleting model 'CodeLog'
-        db.delete_table(u'maypi_codelog')
-
-
-    models = {
-        u'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        u'auth.permission': {
-            'Meta': {'ordering': "(u'content_type__app_label', u'content_type__model', u'codename')", 'unique_together': "((u'content_type', u'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        u'auth.user': {
-            'Meta': {'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Group']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
-        u'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'maypi.codelog': {
-            'Meta': {'object_name': 'CodeLog'},
-            'code': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['maypi.DoorCode']", 'null': 'True', 'blank': 'True'}),
-            'code_entered': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'success': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'})
-        },
-        u'maypi.doorcode': {
-            'Meta': {'object_name': 'DoorCode'},
-            'code': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '16', 'db_index': 'True'}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'end': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'start': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'})
-        }
-    }
-
-    complete_apps = ['maypi']
+    operations = [
+        migrations.CreateModel(
+            name='CodeLog',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True)),
+                ('code_entered', models.CharField(max_length=100)),
+                ('success', models.BooleanField(default=False)),
+                ('status', models.CharField(default=b'NONE', max_length=16)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='DoorCode',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True)),
+                ('code', models.CharField(unique=True, max_length=16, db_index=True)),
+                ('start', models.DateTimeField(default=datetime.datetime.now)),
+                ('end', models.DateTimeField(null=True, blank=True)),
+                ('user', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+            ],
+        ),
+        migrations.AddField(
+            model_name='codelog',
+            name='code',
+            field=models.ForeignKey(blank=True, to='maypi.DoorCode', null=True),
+        ),
+        migrations.AddField(
+            model_name='codelog',
+            name='user',
+            field=models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True),
+        ),
+    ]

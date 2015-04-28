@@ -1,10 +1,10 @@
-Django>=1.6,<1.7
-South==1.0
+Django>=1.8,<1.9
 argparse==1.2.1
 docutils==0.12
-gunicorn==19.1.0
+gunicorn==19.3.0
 wiringpi2==1.0.10
 wsgiref==0.1.2
-lockfile==0.9.1
-python-daemon==1.6
-requests
+lockfile==0.10.2
+python-daemon==2.0.5
+requests==2.6.2
+pip-tools==0.3.6
