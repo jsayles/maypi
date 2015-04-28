@@ -17,14 +17,37 @@ The hardware used for this system includes:
  - Various other parts
 
 ## Software
- - Raspian Wheezy (2014-06-20)
- - Nginx 1.2.1
- - Django 1.6
- - Gunicorn 0.14.5
+ - Raspian Wheezy
+ - Nginx
+ - Gunicorn
+ - Django 1.8
  - Python 2.7
 
-## Installation
-Installing a django app is pretty straight forward.  I should probably add some better installation instructions though.
+## Raspberry Pi Setup
+
+### Install Raspian
+https://www.raspberrypi.org/downloads/
+
+### Install a few essentials and set up the pi
+sudo apt-get install git tmux python-pip python-dev virtualenvwrapper
+sudo apt-get install nginx gunicorn
+
+### Disable Swap
+sudo apt-get remove dphys-swapfile
+
+### Ram tmp dir
+sudo vi /etc/fstab
+tmpfs /tmp tmpfs nodev,nosuid,size=50M 0 0
+rmdir /var/tmp
+ln -s /tmp /var/tmp
+
+### Force HDMI
+sudo vi /boot/config.txt
+hdmi_force_hotplug=1
+
+### Install Adafuit Tools
+https://github.com/adafruit/Adafruit-Pi-Finder#adafruit-raspberry-pi-finder
+curl -SLs https://apt.adafruit.com/bootstrap | bash
 
 ## Icon
 Lock icon provided by Svangraph
