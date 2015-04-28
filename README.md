@@ -73,10 +73,13 @@ cd wiringPi
 ```
 sudo adduser maypi
 sudo su - maypi
-virtualenv maypi
+virtualenv maypisour
 cd maypi
+source bin/activate
 git clone https://github.com/jsayles/maypi.git
-cd maypi/local_settings.example.py maypi/local_settings.py
+cd maypi
+cp maypi/local_settings.example.py maypi/local_settings.py
+vi maypi/local_settings.py
 pip install -r requirements.txt
 ./manage.py migrate
 ```
