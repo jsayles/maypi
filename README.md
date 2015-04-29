@@ -69,15 +69,6 @@ cd wiringPi
 ./build
 ```
 
-### Install PiGPIO
-http://abyz.co.uk/rpi/pigpio/download.html
-```
-git clone https://github.com/joan2937/pigpio
-cd PIGPIO
-make
-make install
-```
-
 ## Setup Maypi Application
 ```
 sudo adduser maypi
@@ -98,3 +89,4 @@ pip install -r requirements.txt
 
 ## Setup Nginx/Supervisor/Gunicorn
 Follow the instructions in config/README.md
+
