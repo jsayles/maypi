@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Test API</h2>
+<form action="{% url 'test_api' %}" enctype="multipart/form-data" method="POST">{% csrf_token %}
+	<textarea cols=60 rows=10 name="data"></textarea><br/>
+	<input type="submit" value="Test" />
+</form>
+{% endblock %}

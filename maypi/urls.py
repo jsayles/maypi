@@ -12,6 +12,9 @@ urlpatterns = patterns('',
 	url(r'^users/', 'maypi.views.users', name='users'),
 	url(r'^test_code/', 'maypi.views.test_code', name='test_code'),
 	url(r'^pincode/', 'maypi.views.pincode', name='pincode'),
+	url(r'^test_api/', 'maypi.views.test_api', name='test_api'),
+	url(r'^api/', 'maypi.views.api', name='api'),
+
 	url(r'^admin/', include(admin.site.urls)),
 
 	url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),

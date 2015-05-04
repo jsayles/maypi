@@ -4,6 +4,7 @@ ADMINS = (
 DEBUG = True
 TEMPLATE_DEBUG = True
 SECRET_KEY = 'yoursecretkeyissecret'
+API_KEY = 'anothersecretkey'
 
 STATIC_ROOT = '/home/maypi/webapp/static/'
 MEDIA_ROOT = '/home/maypi/webapp/media/'
