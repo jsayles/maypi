@@ -3,18 +3,22 @@ import base64
 import logging
 import requests
 
+from random import randint
 from Crypto.Cipher import AES
 from django.conf import settings
-
-crypto = AES.new(settings.MAYPI_API_KEY, AES.MODE_ECB)
 
 class MaypAPIException(Exception):
 	pass
 
-def wrap_data(json_data):
+def get_crypto(key=None):
+	if not key:
+		key = settings.MAYPI_API_KEY
+	return AES.new(key, AES.MODE_ECB)
+	
+def wrap_data(json_data, api_key=None):
 	# Load to make sure we have valid json data
 	json.loads(json_data)
-	
+		
 	# Data must be a length that is a multiple of 16
 	padding = 5120
 	if len(json_data) < 1024:
@@ -24,6 +28,7 @@ def wrap_data(json_data):
 	padded_data = json_data.ljust(padding)
 	
 	# Encrypt the data
+	crypto = get_crypto(key)
 	encrypted_data = crypto.encrypt(padded_data)
 	
 	# For tranport we also base64 encode the data
@@ -31,11 +36,12 @@ def wrap_data(json_data):
 	
 	return encoded_data
 
-def unwrap_data(encoded_data):
+def unwrap_data(encoded_data, api_key=None):
 	# FDecode the base64 encodiing
 	decoded_data = base64.urlsafe_b64decode(encoded_data.encode("utf-8"))
 	
 	# Decrypt the data
+	crypto = get_crypto(key)
 	decripted_data = crypto.decrypt(decoded_data)
 	
 	# Turn the data in to json
@@ -45,4 +51,6 @@ def unwrap_data(encoded_data):
 
 def transmit_data(data):
 	return requests.post(settings.MAYPI_MASTER_URL, data={'data':wrap_data(data)})
-	
+
+def random_code():
+	return randint(100000, 999000)
