@@ -51,7 +51,7 @@ def unwrap_data(encoded_data, api_key=None):
 
 def transmit_data(data):
 	post_data = { 
-		'door_id': settings.MAYPI_DOOR_ID
+		'door_id': settings.MAYPI_DOOR_ID,
 		'data': wrap_data(data),
 	}
 	return requests.post(settings.MAYPI_MASTER_URL, data=post_data)
