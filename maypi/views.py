@@ -1,9 +1,3 @@
-import json
-import base64
-import logging
-import requests
-from Crypto.Cipher import AES
-
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -20,10 +14,11 @@ from django import forms
 
 from maypi.models import DoorCode, CodeLog
 from maypi.forms import UserForm, DoorCodeForm
-from maypi import door
+from maypi import door, maypi_api
 
 from time import sleep
 
+import logging
 logger = logging.getLogger(__name__)
 
 @login_required
@@ -118,11 +113,8 @@ def pincode(request):
 def api(request):
 	status = "NO_DATA"
 	if request.method == 'POST':
-		crypto = AES.new(settings.API_KEY, AES.MODE_ECB)
-		encoded_data = request.POST.get("data")
-		decoded_data = base64.urlsafe_b64decode(encoded_data.encode("utf-8"))
-		decripted_data = crypto.decrypt(decoded_data)
-		json_data = json.loads(decripted_data)
+		data = request.POST.get("data")
+		json_data = maypi_api.unwrap_data(data)
 		print json_data
 		status = "DATA"
 
@@ -132,12 +124,8 @@ def api(request):
 def test_api(request):
 	status = ""
 	if request.method == 'POST':
-		crypto = AES.new(settings.API_KEY, AES.MODE_ECB)
-		raw_data = request.POST.get("data")
-		padded_data = raw_data.ljust(1024)
-		encrypted_data = crypto.encrypt(padded_data)
-		encoded_data = base64.urlsafe_b64encode(encrypted_data)
-		api_url = "http://localhost:8000" + reverse('maypi.views.api')
-		status = requests.post(api_url, data={'data':encoded_data})
+		data = request.POST.get("data")
+		status = maypi_api.transmit_data(data)
+		return HttpResponse(status, content_type="text/plain")
 
 	return render(request, "test_api.html", {'status':status})

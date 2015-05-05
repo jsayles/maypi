@@ -4,10 +4,13 @@ ADMINS = (
 DEBUG = True
 TEMPLATE_DEBUG = True
 SECRET_KEY = 'yoursecretkeyissecret'
-API_KEY = 'anothersecretkey'
 
 STATIC_ROOT = '/home/maypi/webapp/static/'
 MEDIA_ROOT = '/home/maypi/webapp/media/'
+
+# These are used to connect modernomad and maypi
+MAYPI_API_KEY = 'anothersecretkey'
+MAYPI_MASTER_URL = "http://localhost:8000/api/"
 
 LOGGING = {
 		'version': 1,
