@@ -28,7 +28,7 @@ def wrap_data(json_data, api_key=None):
 	padded_data = json_data.ljust(padding)
 	
 	# Encrypt the data
-	crypto = get_crypto(key)
+	crypto = get_crypto(api_key)
 	encrypted_data = crypto.encrypt(padded_data)
 	
 	# For tranport we also base64 encode the data
@@ -41,7 +41,7 @@ def unwrap_data(encoded_data, api_key=None):
 	decoded_data = base64.urlsafe_b64decode(encoded_data.encode("utf-8"))
 	
 	# Decrypt the data
-	crypto = get_crypto(key)
+	crypto = get_crypto(api_key)
 	decripted_data = crypto.decrypt(decoded_data)
 	
 	# Turn the data in to json
@@ -50,7 +50,11 @@ def unwrap_data(encoded_data, api_key=None):
 	return json_data
 
 def transmit_data(data):
-	return requests.post(settings.MAYPI_MASTER_URL, data={'data':wrap_data(data)})
+	post_data = { 
+		'door_id': settings.MAYPI_DOOR_ID
+		'data': wrap_data(data),
+	}
+	return requests.post(settings.MAYPI_MASTER_URL, data=post_data)
 
 def random_code():
 	return randint(100000, 999000)
