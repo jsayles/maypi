@@ -13,6 +13,7 @@ class MaypAPIException(Exception):
 def get_crypto(key=None):
 	if not key:
 		key = settings.MAYPI_API_KEY
+	key = key[:32].zfill(32)
 	return AES.new(key, AES.MODE_ECB)
 	
 def wrap_data(json_data, api_key=None):
