@@ -17,7 +17,9 @@ setup(
     url='https://github.com/jsayles/maypi',
     author='Jacob Sayles',
     author_email='jsayles@gmail.com',
-    install_requires='pycrypto'
+    install_requires=[
+        'pycrypto',
+    ]
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
