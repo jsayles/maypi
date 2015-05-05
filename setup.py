@@ -18,8 +18,8 @@ setup(
     author='Jacob Sayles',
     author_email='jsayles@gmail.com',
     install_requires=[
-        'pycrypto',
-    ]
+        'pycrypto==2.6.1',
+    ],
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
