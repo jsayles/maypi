@@ -12,6 +12,9 @@ DATA1_PIN = 15
 ESC=10
 ENT=11
 
+PIGPIO_HOST = "localhost"
+PIGPIO_PORT = "9009"
+
 TARGET="http://localhost/pincode/"
 
 def log(message, timestamp=True, newline=True):
@@ -54,7 +57,7 @@ class Controller:
 
 	def start(self, d0pin, d1pin):
 		log("Starting wiegand daemon...", newline=False)
-		self.pi = pigpio.pi()
+		self.pi = pigpio.pi(PIGPIO_HOST, PIGPIO_PORT)
 		self.w = wiegand.decoder(self.pi, d0pin, d1pin, self.callback)
 		log("done!", timestamp=False)
 
