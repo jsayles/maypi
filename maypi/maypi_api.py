@@ -53,9 +53,23 @@ def unwrap_data(encoded_data, api_key=None):
 def transmit_data(data):
 	post_data = { 
 		'door_id': settings.MAYPI_DOOR_ID,
-		'data': wrap_data(data),
+		'data': wrap_data(data, api_key=settings.MAYPI_API_KEY),
 	}
 	return requests.post(settings.MAYPI_MASTER_URL, data=post_data)
 
+def sync_door_codes():
+	# TODO 
+	# - Compile a give-me-all-your-door codes command in some form of json
+	# - Use transmit_data to send it over to the mother ship
+	# - Save all the door codes that come back to the local database
+	sync_command = "{'action':'give-me-all-your-door-codes'}"
+	response = transmit_data(sync_command)
+	response_data = response.json()
+	for door_code in response_data:
+		# Save that shit to our database
+		pass
+		
+	return
+	
 def random_code():
 	return randint(100000, 999000)
